@@ -120,7 +120,17 @@
 
 
 
+\## Day 10 - COMPLETE
 
+\- \[x] Added /health endpoint to Flask app
 
+\- \[x] Health check verifies database connection
 
+\- \[x] Kubernetes livenessProbe configured
+
+\- \[x] Kubernetes readinessProbe configured
+
+\- \[x] Witnessed self-healing: deleted pod, Kubernetes recreated it
+
+\- \[x] Application version bumped to Day 10
 
