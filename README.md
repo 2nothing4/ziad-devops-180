@@ -68,3 +68,21 @@
 
 \- \[x] Multi-container PostgreSQL + Python test automated
 
+
+
+\## Day 7 - COMPLETE
+
+\- \[x] Kubernetes cluster running locally (Minikube)
+
+\- \[x] PostgreSQL deployed to Kubernetes
+
+\- \[x] Python app deployed to Kubernetes
+
+\- \[x] App connects to database inside cluster
+
+\- \[x] Fixed psycopg2 dependency and timing issues
+
+\- \[x] Kubernetes manifests stored in repo
+
+\- \[x] Multi-container orchestration working end-to-end
+
