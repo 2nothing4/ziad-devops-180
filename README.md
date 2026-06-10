@@ -14,6 +14,8 @@
 
 \- \[x] First commit pushed
 
+
+
 \## Day 2 - COMPLETE
 
 \- \[x] Python script fetches GitHub API
@@ -31,4 +33,16 @@
 \- \[x] First Linux commands executed
 
 \- \[x] Created first Linux file: day3-linux.txt
+
+
+
+\## Day 4 - COMPLETE
+
+\- \[x] Docker Desktop installed
+
+\- \[x] First container ran
+
+\- \[x] Built custom Dockerfile
+
+\- \[x] Containerized Python script
 
