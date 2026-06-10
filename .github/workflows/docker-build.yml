@@ -1,0 +1,24 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Build Docker image
+      run: |
+        cd day5-compose
+        docker build -t ziad-devops-day5 .
+    
+    - name: Test Docker image
+      run: |
+        cd day5-compose
+        docker run ziad-devops-day5

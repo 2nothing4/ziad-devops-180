@@ -56,3 +56,13 @@
 
 \- \[x] Python + PostgreSQL connected
 
+
+
+\## Day 6 - COMPLETE
+
+\- \[x] GitHub Actions workflow created
+
+\- \[x] Automated Docker build on every push
+
+\- \[x] CI/CD pipeline running
+
