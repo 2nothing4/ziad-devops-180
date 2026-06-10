@@ -134,3 +134,17 @@
 
 \- \[x] Health endpoint returns: {"database": "connected", "status": "healthy"}
 
+
+
+\## Day 11 - COMPLETE
+
+\- \[x] Prometheus deployed to Kubernetes
+
+\- \[x] Prometheus scraping Flask app health endpoint
+
+\- \[x] Grafana deployed to Kubernetes
+
+\- \[x] Grafana dashboard created showing app health
+
+\- \[x] Monitoring stack: Prometheus + Grafana + Flask app
+
