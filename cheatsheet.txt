@@ -1,0 +1,33 @@
+LINUX COMMANDS:
+pwd = where am i
+ls = list files
+cd folder = enter folder
+cd .. = go back
+nano file = edit file
+Ctrl+O + Enter = save
+Ctrl+X = exit
+
+DOCKER:
+docker build -t name .
+docker run name
+docker ps
+
+KUBERNETES:
+kubectl get pods
+kubectl apply -f file.yaml
+kubectl delete pod -l app=name
+kubectl logs deployment/name
+kubectl port-forward service/name 8080:80
+
+GIT:
+git add .
+git commit -m "message"
+git push origin main
+
+REBUILD ORDER:
+1. docker build
+2. minikube image load
+3. kubectl apply postgres
+4. kubectl apply app
+5. kubectl apply nginx
+6. kubectl port-forward service/nginx-service 8080:80
