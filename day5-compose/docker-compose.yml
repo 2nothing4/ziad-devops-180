@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: ziad
+      POSTGRES_PASSWORD: secret123
+      POSTGRES_DB: devops
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgresql://ziad:secret123@db:5432/devops
+
+volumes:
+  postgres_data:
+

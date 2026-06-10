@@ -46,3 +46,13 @@
 
 \- \[x] Containerized Python script
 
+
+
+\## Day 5 - COMPLETE
+
+\- \[x] Docker Compose installed
+
+\- \[x] Multi-container system running
+
+\- \[x] Python + PostgreSQL connected
+
