@@ -162,3 +162,19 @@
 
 \- \[x] All three layers accessible through single entry point
 
+
+
+\## Day 13 - COMPLETE
+
+\- \[x] Flask app scaled to 3 replicas
+
+\- \[x] Load balancing across multiple pods
+
+
+
+\## Day 14 - COMPLETE
+
+\- \[x] Redis cache deployed to Kubernetes
+
+\- \[x] Caching layer added to architecture
+
