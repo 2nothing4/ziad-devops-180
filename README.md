@@ -130,7 +130,7 @@
 
 \- \[x] Kubernetes readinessProbe configured
 
-\- \[x] Witnessed self-healing: deleted pod, Kubernetes recreated it
-
 \- \[x] Application version bumped to Day 10
+
+\- \[x] Health endpoint returns: {"database": "connected", "status": "healthy"}
 
