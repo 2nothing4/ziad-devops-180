@@ -13,12 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
-    - name: Build Docker image
+    - name: Build and test with Docker Compose
       run: |
         cd day5-compose
-        docker build -t ziad-devops-day5 .
-    
-    - name: Test Docker image
-      run: |
-        cd day5-compose
-        docker run ziad-devops-day5
+        docker compose up --abort-on-container-exit
