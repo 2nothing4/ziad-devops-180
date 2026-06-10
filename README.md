@@ -144,7 +144,9 @@
 
 \- \[x] Grafana deployed to Kubernetes
 
-\- \[x] Grafana dashboard created showing app health
+\- \[x] Grafana dashboard created showing app health (up=1)
 
 \- \[x] Monitoring stack: Prometheus + Grafana + Flask app
+
+\- \[x] Real-time visualization of application uptime
 
