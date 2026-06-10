@@ -64,5 +64,7 @@
 
 \- \[x] Automated Docker build on every push
 
-\- \[x] CI/CD pipeline running
+\- \[x] CI/CD pipeline running with GREEN CHECKMARK
+
+\- \[x] Multi-container PostgreSQL + Python test automated
 
