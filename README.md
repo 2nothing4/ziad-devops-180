@@ -150,3 +150,15 @@
 
 \- \[x] Real-time visualization of application uptime
 
+
+
+\## Day 12 - COMPLETE
+
+\- \[x] Nginx reverse proxy deployed to Kubernetes
+
+\- \[x] Nginx routes traffic from port 80 to Flask service
+
+\- \[x] Production-grade architecture: Nginx → Flask → PostgreSQL
+
+\- \[x] All three layers accessible through single entry point
+
