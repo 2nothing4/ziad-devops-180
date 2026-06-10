@@ -114,5 +114,13 @@
 
 \- \[x] Real web API serving database content
 
+\- \[x] / endpoint: welcome message
+
+\- \[x] /logs endpoint: database query returning JSON
+
+
+
+
+
 
 
