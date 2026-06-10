@@ -170,6 +170,8 @@
 
 \- \[x] Load balancing across multiple pods
 
+\- \[x] Nginx distributing traffic to 3 Flask instances
+
 
 
 \## Day 14 - COMPLETE
@@ -177,4 +179,6 @@
 \- \[x] Redis cache deployed to Kubernetes
 
 \- \[x] Caching layer added to architecture
+
+\- \[x] Core DevOps stack COMPLETE: 14 milestones
 
