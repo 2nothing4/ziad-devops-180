@@ -98,3 +98,21 @@
 
 \- \[x] Server destroyed cleanly with code
 
+
+
+\## Day 9 - COMPLETE
+
+\- \[x] Flask web application built
+
+\- \[x] Python API connects to PostgreSQL database
+
+\- \[x] Docker image built and loaded into Minikube
+
+\- \[x] Deployed to Kubernetes with service
+
+\- \[x] Application accessible in browser via port-forward
+
+\- \[x] Real web API serving database content
+
+
+
