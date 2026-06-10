@@ -86,3 +86,15 @@
 
 \- \[x] Multi-container orchestration working end-to-end
 
+
+
+\## Day 8 - COMPLETE
+
+\- \[x] Terraform installed
+
+\- \[x] First Infrastructure as Code file created
+
+\- \[x] Nginx web server deployed with code
+
+\- \[x] Server destroyed cleanly with code
+
