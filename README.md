@@ -186,12 +186,12 @@
 
 \## Day 15 - COMPLETE
 
-\- \[x] Helm chart created:
+\- \[x] Helm chart created: ziad-devops-chart/
 
-\- \[x] One command deploys full stack:
+\- \[x] One command deploys full stack: helm install my-app ./ziad-devops-chart
 
 \- \[x] Stack includes: Nginx, Flask API (3 replicas), PostgreSQL, Redis, Prometheus, Grafana
 
-\- \[x] Tested: returns Redis cache data
+\- \[x] Tested: curl localhost:8080/cache returns Redis cache data
 
 \- \[x] Day 15: Helm orchestration COMPLETE
