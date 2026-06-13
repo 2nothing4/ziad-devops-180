@@ -195,3 +195,16 @@
 \- \[x] Tested: curl localhost:8080/cache returns Redis cache data
 
 \- \[x] Day 15: Helm orchestration COMPLETE
+
+
+\## Day 16 - COMPLETE
+
+\- \[x] Kubernetes Secret created for database password
+
+\- \[x] Flask app reads DB password from environment variable
+
+\- \[x] Secret injected into pod via secretKeyRef
+
+\- \[x] No plaintext passwords in repository code
+
+\- \[x] Day 16: Security hardening COMPLETE
