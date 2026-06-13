@@ -276,3 +276,18 @@
 \- \[x] Dev environment calls module with custom values
 
 \- \[x] Day 21: Infrastructure as Code modularity COMPLETE
+
+
+\## Day 22 - COMPLETE
+
+\- \[x] Flask app exposes /metrics endpoint with prometheus-client
+
+\- \[x] Custom metrics: request count and latency histogram
+
+\- \[x] Alertmanager deployed with webhook receiver
+
+\- \[x] Prometheus alert rules: AppDown (critical), HighLatency (warning)
+
+\- \[x] Tested: curl localhost:5000/metrics returns app_requests_total and latency buckets
+
+\- \[x] Day 22: Advanced observability COMPLETE
