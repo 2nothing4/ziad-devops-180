@@ -10,7 +10,7 @@ def get_db_connection():
         host=os.environ.get('DB_HOST', 'postgres'),
         database='devops',
         user='ziad',
-        password='secret123'
+        password=os.environ.get('DB_PASSWORD', 'secret123')
     )
 
 def get_redis_connection():

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: flask-day14
+        image: flask-day16
         imagePullPolicy: Never
         ports:
         - containerPort: 5000
@@ -23,6 +23,11 @@ spec:
           value: postgres
         - name: REDIS_HOST
           value: redis
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: db-secret
+              key: password
         livenessProbe:
           httpGet:
             path: /health
