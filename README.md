@@ -250,3 +250,16 @@
 \- \[x] Tested: deleted postgres pod, verified logs data persisted
 
 \- \[x] Day 19: Data persistence COMPLETE
+
+
+\## Day 20 - COMPLETE
+
+\- \[x] GitHub Actions validates Helm chart with helm lint
+
+\- \[x] GitHub Actions renders manifests with helm template
+
+\- \[x] CI/CD pipeline catches syntax errors before deployment
+
+\- \[x] rebuild.sh script automates full local destroy and rebuild
+
+\- \[x] Day 20: CI/CD hardening COMPLETE
