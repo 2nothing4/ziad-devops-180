@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-rules
+data:
+  alerts.yml: |
+    groups:
+    - name: app-alerts
+      rules:
+      - alert: AppDown
+        expr: up{job="api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Flask app is down"
+          description: "The Flask API has been down for more than 1 minute"
+      - alert: HighLatency
+        expr: app_request_latency_seconds_bucket{le="0.5"} / app_request_latency_seconds_bucket{le="+Inf"} < 0.95
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High API latency"
+          description: "Less than 95% of requests are served under 0.5s"
