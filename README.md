@@ -237,3 +237,16 @@
 \- \[x] Explicit allow: api -&gt; redis (port 6379)
 
 \- \[x] Day 18: Network security COMPLETE
+
+
+\## Day 19 - COMPLETE
+
+\- \[x] PersistentVolumeClaim created for PostgreSQL
+
+\- \[x] Postgres deployment mounts PVC at /var/lib/postgresql/data
+
+\- \[x] Data survives pod deletion and redeployment
+
+\- \[x] Tested: deleted postgres pod, verified logs data persisted
+
+\- \[x] Day 19: Data persistence COMPLETE
