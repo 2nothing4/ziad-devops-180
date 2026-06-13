@@ -263,3 +263,16 @@
 \- \[x] rebuild.sh script automates full local destroy and rebuild
 
 \- \[x] Day 20: CI/CD hardening COMPLETE
+
+
+## Day 21 - COMPLETE
+
+\- \[x] Terraform module created: terraform/modules/docker-web/
+
+\- \[x] Variables for image name, container name, external port
+
+\- \[x] Outputs for container ID and name
+
+\- \[x] Dev environment calls module with custom values
+
+\- \[x] Day 21: Infrastructure as Code modularity COMPLETE
