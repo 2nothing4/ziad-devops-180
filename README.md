@@ -222,3 +222,18 @@
 \- \[x] API deployment uses serviceAccountName: api-sa
 
 \- \[x] Day 17: Security hardening COMPLETE
+
+
+\## Day 18 - COMPLETE
+
+\- \[x] Network policies configured
+
+\- \[x] Default deny all ingress traffic
+
+\- \[x] Explicit allow: nginx -&gt; api (port 5000)
+
+\- \[x] Explicit allow: api -&gt; postgres (port 5432)
+
+\- \[x] Explicit allow: api -&gt; redis (port 6379)
+
+\- \[x] Day 18: Network security COMPLETE
