@@ -265,7 +265,7 @@
 \- \[x] Day 20: CI/CD hardening COMPLETE
 
 
-## Day 21 - COMPLETE
+\## Day 21 - COMPLETE
 
 \- \[x] Terraform module created: terraform/modules/docker-web/
 
