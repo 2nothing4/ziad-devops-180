@@ -1,7 +1,6 @@
 \# Ziad - DevOps 180
 
 
-
 \*\*Started:\*\* 2026-06-09
 
 \*\*Rule:\*\* No switching. No new fields. No more AI opinions.
@@ -208,3 +207,18 @@
 \- \[x] No plaintext passwords in repository code
 
 \- \[x] Day 16: Security hardening COMPLETE
+
+
+\## Day 17 - COMPLETE
+
+\- \[x] RBAC configured for API pod
+
+\- \[x] Dedicated ServiceAccount created: api-sa
+
+\- \[x] Role with least privilege: get/list pods only
+
+\- \[x] RoleBinding connects ServiceAccount to Role
+
+\- \[x] API deployment uses serviceAccountName: api-sa
+
+\- \[x] Day 17: Security hardening COMPLETE
