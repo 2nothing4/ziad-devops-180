@@ -308,3 +308,18 @@
 \- \[x] Architecture targets eu-west-3 (Paris) for French timezone proximity
 
 \- \[x] Day 23: Cloud architecture as code COMPLETE
+
+
+\## Day 24 - COMPLETE
+
+\- \[x] Resource requests and limits added to API pods: 128Mi/256Mi memory, 100m/200m cpu
+
+\- \[x] Resource limits added to Nginx: 64Mi/128Mi memory, 50m/100m cpu
+
+\- \[x] Resource limits added to PostgreSQL: 256Mi/512Mi memory, 100m/200m cpu
+
+\- \[x] Resource limits added to Redis: 64Mi/128Mi memory, 50m/100m cpu
+
+\- \[x] Verified with kubectl describe pod: limits confirmed
+
+\- \[x] Day 24: Production resource management COMPLETE
