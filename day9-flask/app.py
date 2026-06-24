@@ -12,21 +12,18 @@ REQUEST_COUNT = Counter('app_requests_total', 'Total requests', ['method', 'endp
 REQUEST_LATENCY = Histogram('app_request_latency_seconds', 'Request latency')
 
 def get_db_connection():
-    # Read full database URL from environment (Render sets this)
     database_url = os.environ.get('DATABASE_URL')
     
     if database_url and database_url.startswith('postgres'):
-        # Parse the URL: postgresql://user:pass@host:port/db
         url = urlparse(database_url)
         return psycopg2.connect(
             host=url.hostname,
-            database=url.path[1:],  # Remove leading '/'
+            database=url.path[1:],
             user=url.username,
             password=url.password,
             port=url.port or 5432
         )
     else:
-        # Local fallback (Docker Compose, Minikube)
         return psycopg2.connect(
             host=os.environ.get('DB_HOST', 'localhost'),
             database='devops',
@@ -35,18 +32,40 @@ def get_db_connection():
         )
 
 def get_redis_connection():
-    # Read full Redis URL from environment (Render sets this)
     redis_url = os.environ.get('REDIS_URL')
     
     if redis_url:
         return redis.from_url(redis_url, decode_responses=True)
     else:
-        # Local fallback
         return redis.Redis(
             host=os.environ.get('REDIS_HOST', 'localhost'),
             port=6379,
             decode_responses=True
         )
+
+def init_db():
+    """Create logs table if it doesn't exist"""
+    try:
+        conn = get_db_connection()
+        cur = conn.cursor()
+        cur.execute('''
+            CREATE TABLE IF NOT EXISTS logs (
+                id SERIAL PRIMARY KEY,
+                message TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        cur.execute("SELECT COUNT(*) FROM logs")
+        if cur.fetchone()[0] == 0:
+            cur.execute("INSERT INTO logs (message) VALUES ('First log on Render')")
+        conn.commit()
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print(f"Database init error: {e}")
+
+# Initialize database on startup
+init_db()
 
 @app.route('/')
 def hello():
@@ -119,6 +138,5 @@ def metrics():
     return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
 
 if __name__ == '__main__':
-    # Render assigns PORT automatically, fallback to 5000 locally
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
