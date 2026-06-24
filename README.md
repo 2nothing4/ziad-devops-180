@@ -35,7 +35,50 @@ The goal of this repository is to document the practical implementation of a com
 ```
 
 ---
+---
 
+## 🚀 Live Deployment
+
+**Flask API deployed on Render (cloud):** https://ziad-flask-app.onrender.com
+
+| Endpoint | Description | Status |
+|----------|-------------|--------|
+| `/` | Service status | ✅ Live |
+| `/health` | PostgreSQL health check | ✅ Live |
+| `/logs` | Database query results | ✅ Live |
+| `/cache` | Redis cache test | ✅ Live |
+| `/metrics` | Prometheus metrics | ✅ Live |
+
+**Tech stack on Render:**
+- Flask + Gunicorn
+- PostgreSQL (managed)
+- Redis (managed)
+- Environment variables for configuration
+- Auto-deploy from GitHub
+
+---
+
+## Local vs Cloud Architecture
+
+```text
+LOCAL (Minikube)                    CLOUD (Render)
+┌─────────────┐                    ┌─────────────┐
+│   Nginx     │                    │  Render LB   │
+└──────┬──────┘                    └──────┬──────┘
+       │                                │
+       v                                v
+┌──────────────┐                  ┌──────────────┐
+│ Flask (3 Pods)│                  │ Flask (Gunicorn)│
+└──────┬───────┘                  └──────┬───────┘
+       │                                │
+   ┌───┴───┐                        ┌───┴───┐
+   │       │                        │       │
+   v       v                        v       v
+┌──────┐ ┌──────┐              ┌──────┐ ┌──────┐
+│ Postgres│ │ Redis │              │ Postgres│ │ Redis │
+│ (local)│ │(local)│              │(managed)│ │(managed)│
+└──────┘ └──────┘              └──────┘ └──────┘
+```
 ## Technologies
 
 ### Containerization
@@ -160,19 +203,17 @@ Lesson:
 
 ## Current Status
 
-Completed areas:
-
-* Docker
-* Docker Compose
-* Linux fundamentals
-* GitHub Actions
-* Kubernetes
-* Helm
-* Terraform
-* Monitoring
-* Logging & Metrics
-* Security Hardening
-* Infrastructure as Code
+| Area | Local | Cloud |
+|------|-------|-------|
+| Docker | ✅ | - |
+| Docker Compose | ✅ | - |
+| Kubernetes (Minikube) | ✅ | - |
+| Helm | ✅ | - |
+| Terraform | ✅ | - |
+| CI/CD (GitHub Actions) | ✅ | - |
+| Monitoring (Prometheus/Grafana) | ✅ | - |
+| **Cloud Deployment (Render)** | - | **✅** |
+| **Live URL for Portfolio** | - | **✅** |
 
 Repository continues to evolve as new capabilities are implemented and documented.
 
