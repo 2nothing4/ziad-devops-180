@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, Response
-import psycopg2
+import psycopg
 import redis
 import os
 import time
@@ -15,18 +15,12 @@ def get_db_connection():
     database_url = os.environ.get('DATABASE_URL')
     
     if database_url and database_url.startswith('postgres'):
-        url = urlparse(database_url)
-        return psycopg2.connect(
-            host=url.hostname,
-            database=url.path[1:],
-            user=url.username,
-            password=url.password,
-            port=url.port or 5432
-        )
+        # psycopg 3 accepts the full URL directly
+        return psycopg.connect(database_url)
     else:
-        return psycopg2.connect(
+        return psycopg.connect(
             host=os.environ.get('DB_HOST', 'localhost'),
-            database='devops',
+            dbname='devops',
             user='ziad',
             password=os.environ.get('DB_PASSWORD', 'secret123')
         )
@@ -86,7 +80,7 @@ def health():
     start = time.time()
     try:
         conn = get_db_connection()
-        conn.cursor().execute('SELECT 1')
+        conn.execute('SELECT 1')
         conn.close()
         result = jsonify({'database': 'connected', 'status': 'healthy'})
     except Exception as e:
