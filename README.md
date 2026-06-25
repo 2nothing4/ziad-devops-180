@@ -230,15 +230,4 @@ Deploy the entire stack with one command:
 
 ```bash
 helm install ziad-devops ./helm/ziad-devops
----
 
-## Author
-
-**Chabane Ahmed Ziad**
-
-Aspiring DevOps / Platform Engineer
-
-Location: Algeria
-
-GitHub: @2nothing4
-# auto-deploy test Thu Jun 25 15:15:34 CET 2026
