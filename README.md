@@ -1,3 +1,4 @@
+![Deploy to Render](https://github.com/2nothing4/ziad-devops-180/actions/workflows/render-deploy.yml/badge.svg)
 # Ziad DevOps 180
 
 A production-style DevOps learning project focused on containerization, orchestration, observability, security, CI/CD, and Infrastructure as Code.
