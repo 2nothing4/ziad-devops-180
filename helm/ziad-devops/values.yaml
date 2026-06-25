@@ -1,9 +1,9 @@
 replicaCount: 3
 
 image:
-  repository: ghcr.io/2nothing4/ziad-devops-api
+  repository: ziad-devops-api
   tag: latest
-  pullPolicy: IfNotPresent
+  pullPolicy: Never
 
 service:
   type: ClusterIP
@@ -14,7 +14,7 @@ nginx:
   image:
     repository: nginx
     tag: alpine
-    pullPolicy: IfNotPresent
+    pullPolicy: Never
   service:
     type: NodePort
     port: 8080
