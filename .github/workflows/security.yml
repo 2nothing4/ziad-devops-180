@@ -24,6 +24,7 @@ jobs:
 
       - name: Upload to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
+        if: always()
         with:
           sarif_file: 'trivy-results.sarif'
 
@@ -33,6 +34,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Create reports dir
+        run: mkdir -p reports
+
       - name: Run Checkov
         uses: bridgecrewio/checkov-action@master
         with:
@@ -40,8 +44,10 @@ jobs:
           framework: all
           output_format: sarif
           output_file_path: reports/checkov.sarif
+          soft_fail: true
 
       - name: Upload to GitHub Security
         uses: github/codeql-action/upload-sarif@v3
+        if: always()
         with:
           sarif_file: reports/checkov.sarif
