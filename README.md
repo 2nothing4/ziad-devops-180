@@ -232,3 +232,4 @@ Deploy the entire stack with one command:
 helm install ziad-devops ./helm/ziad-devops
 
 # Security scan trigger
+
