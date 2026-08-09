@@ -12,5 +12,5 @@ data:
     receivers:
     - name: 'webhook'
       webhook_configs:
-      - url: 'http://host.minikube.internal:5001/webhook'
+      - url: 'http://alert-receiver:5001/webhook'
         send_resolved: true
