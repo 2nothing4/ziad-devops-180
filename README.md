@@ -21,7 +21,7 @@ The goal of this repository is to document the practical implementation of a com
                            |
                            v
                 +----------+----------+
-                | Flask API (3 Pods) |
+                | Flask API (3 Pods)  |
                 +----------+----------+
                            |
               +------------+------------+
@@ -69,21 +69,21 @@ The goal of this repository is to document the practical implementation of a com
 ```text
 LOCAL (Minikube)                    CLOUD (Render)
 ┌─────────────┐                    ┌─────────────┐
-│   Nginx     │                    │  Render LB   │
+│    Nginx    │                    │  Render LB  │
 └──────┬──────┘                    └──────┬──────┘
-       │                                │
-       v                                v
-┌──────────────┐                  ┌──────────────┐
-│ Flask (3 Pods)│                  │ Flask (Gunicorn)│
-└──────┬───────┘                  └──────┬───────┘
-       │                                │
-   ┌───┴───┐                        ┌───┴───┐
-   │       │                        │       │
-   v       v                        v       v
-┌──────┐ ┌──────┐              ┌──────┐ ┌──────┐
-│ Postgres│ │ Redis │              │ Postgres│ │ Redis │
-│ (local)│ │(local)│              │(managed)│ │(managed)│
-└──────┘ └──────┘              └──────┘ └──────┘
+       │                                  │
+       v                                  v
+┌──────────────┐                  ┌────────────────┐
+│Flask (3 Pods)│                  │Flask (Gunicorn)│
+└──────┬───────┘                  └───────┬────────┘
+       │                                  │
+   ┌───┴───────┐                      ┌───┴───┐
+   │           │                      │       │
+   v           v                      v       v
+┌────────┐ ┌───────┐           ┌─────────┐ ┌─────────┐
+│Postgres│ │Redis  │           │Postgres │ │Redis    │
+│(local) │ │(local)│           │(managed)│ │(managed)│
+└────────┘ └───────┘           └─────────┘ └─────────┘
 ```
 ## Technologies
 
@@ -149,6 +149,7 @@ LOCAL (Minikube)                    CLOUD (Render)
 * Secret-based credential management
 * Least-privilege RBAC configuration
 * Network segmentation using Kubernetes Network Policies
+* Trivy + Checkov security scanning
 
 ### Observability
 
@@ -156,6 +157,8 @@ LOCAL (Minikube)                    CLOUD (Render)
 * Grafana dashboards
 * Custom application metrics
 * Alertmanager alert rules
+* Alertmanager webhook alerts (end-to-end tested)
+* In-cluster alert receiver deployment
 
 ### CI/CD
 
@@ -193,6 +196,13 @@ Lesson:
 
 * Kubernetes service discovery depends on exact DNS naming and service registration.
 
+### Alertmanager Webhook Networking
+
+**Issue:** Alertmanager could not reach the webhook receiver running on the WSL2 host.  
+**Root Cause:** `host.minikube.internal` resolved to the wrong network interface.  
+**Resolution:** Deployed the alert receiver as an in-cluster pod with a Kubernetes Service. Alertmanager now routes via cluster DNS.  
+**Lesson:** In-cluster services should communicate via cluster DNS, not host networking.
+
 ---
 
 ## Production-Oriented Enhancements
@@ -218,6 +228,7 @@ Lesson:
 | Terraform | ✅ | - |
 | CI/CD (GitHub Actions) | ✅ | - |
 | Monitoring (Prometheus/Grafana) | ✅ | - |
+| Security Scanning (Trivy/Checkov) | ✅ | - |
 | **Cloud Deployment (Render)** | - | **✅** |
 | **Live URL for Portfolio** | - | **✅** |
 
@@ -230,6 +241,3 @@ Deploy the entire stack with one command:
 
 ```bash
 helm install ziad-devops ./helm/ziad-devops
-
-# Security scan trigger
-
