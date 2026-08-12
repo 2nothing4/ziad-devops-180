@@ -34,8 +34,10 @@ The goal of this repository is to document the practical implementation of a com
               ^
               |
       +------------------+
-      | Prometheus       |
-      | Grafana          |
+      | Prometheus
+Loki       |
+      | Grafana
+Promtail          |
       | Alertmanager     |
       +------------------+
 ```
@@ -53,7 +55,8 @@ The goal of this repository is to document the practical implementation of a com
 | `/health` | PostgreSQL health check | ✅ Live |
 | `/logs` | Database query results | ✅ Live |
 | `/cache` | Redis cache test | ✅ Live |
-| `/metrics` | Prometheus metrics | ✅ Live |
+| `/metrics` | Prometheus
+Loki metrics | ✅ Live |
 
 **Tech stack on Render:**
 - Flask + Gunicorn
@@ -67,23 +70,23 @@ The goal of this repository is to document the practical implementation of a com
 ## Local vs Cloud Architecture
 
 ```text
-LOCAL (Minikube)                    CLOUD (Render)
-┌─────────────┐                    ┌─────────────┐
-│    Nginx    │                    │  Render LB  │
-└──────┬──────┘                    └──────┬──────┘
-       │                                  │
-       v                                  v
-┌──────────────┐                  ┌────────────────┐
-│Flask (3 Pods)│                  │Flask (Gunicorn)│
-└──────┬───────┘                  └───────┬────────┘
-       │                                  │
-   ┌───┴───────┐                      ┌───┴───┐
-   │           │                      │       │
-   v           v                      v       v
-┌────────┐ ┌───────┐           ┌─────────┐ ┌─────────┐
-│Postgres│ │Redis  │           │Postgres │ │Redis    │
-│(local) │ │(local)│           │(managed)│ │(managed)│
-└────────┘ └───────┘           └─────────┘ └─────────┘
+   LOCAL (Minikube)                    CLOUD (Render)
+   ┌─────────────┐                    ┌─────────────┐
+   │    Nginx    │                    │  Render LB  │
+   └──────┬──────┘                    └──────┬──────┘
+          │                                  │
+          v                                  v
+   ┌──────────────┐                  ┌────────────────┐
+   │Flask (3 Pods)│                  │Flask (Gunicorn)│
+   └──────┬───────┘                  └───────┬────────┘
+          │                                  │
+     ┌────┴────┐                         ┌───┴───┐
+     │         │                         │       │
+     v         v                         v       v
+┌────────┐ ┌───────┐              ┌─────────┐ ┌─────────┐
+│Postgres│ │Redis  │              │Postgres │ │Redis    │
+│(local) │ │(local)│              │(managed)│ │(managed)│
+└────────┘ └───────┘              └─────────┘ └─────────┘
 ```
 ## Technologies
 
@@ -107,7 +110,9 @@ LOCAL (Minikube)                    CLOUD (Render)
 ### Observability
 
 * Prometheus
+Loki
 * Grafana
+Promtail
 * Alertmanager
 
 ### Infrastructure as Code
@@ -153,8 +158,10 @@ LOCAL (Minikube)                    CLOUD (Render)
 
 ### Observability
 
-* Prometheus metrics collection
-* Grafana dashboards
+* Prometheus
+Loki metrics collection
+* Grafana
+Promtail dashboards
 * Custom application metrics
 * Alertmanager alert rules
 * Alertmanager webhook alerts (end-to-end tested)
@@ -210,7 +217,8 @@ Lesson:
 * Helm-based deployments
 * Persistent PostgreSQL storage
 * Resource requests and limits
-* Custom Prometheus metrics
+* Custom Prometheus
+Loki metrics
 * Alerting rules
 * Infrastructure modularization
 * Security hardening with RBAC and Network Policies
@@ -227,7 +235,9 @@ Lesson:
 | Helm | ✅ | - |
 | Terraform | ✅ | - |
 | CI/CD (GitHub Actions) | ✅ | - |
-| Monitoring (Prometheus/Grafana) | ✅ | - |
+| Monitoring (Prometheus
+Loki/Grafana
+Promtail) | ✅ | - |
 | Security Scanning (Trivy/Checkov) | ✅ | - |
 | **Cloud Deployment (Render)** | - | **✅** |
 | **Live URL for Portfolio** | - | **✅** |
@@ -241,3 +251,10 @@ Deploy the entire stack with one command:
 
 ```bash
 helm install ziad-devops ./helm/ziad-devops
+
+## Documentation
+- [Day 29: Loki + Promtail Troubleshooting](docs/day29-loki-promtail-debug.md)
+
+## Observability Stack (Added)
+- **Loki** — centralized log aggregation
+- **Promtail** — log shipper with Kubernetes service discovery
