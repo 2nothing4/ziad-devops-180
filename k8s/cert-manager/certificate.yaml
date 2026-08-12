@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ziad-devops-tls
+  namespace: default
+spec:
+  secretName: ziad-devops-tls-secret
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+  dnsNames:
+  - ziad-devops.local
