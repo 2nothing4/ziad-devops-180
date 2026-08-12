@@ -30,14 +30,13 @@ The goal of this repository is to document the practical implementation of a com
         +-----------+             +-----------+
         | PostgreSQL|             |   Redis   |
         +-----------+             +-----------+
-
               ^
               |
       +------------------+
-      | Prometheus
-Loki       |
-      | Grafana
-Promtail          |
+      | Prometheus       |
+      |  Loki            |
+      | Grafana          |
+      | Promtail         |
       | Alertmanager     |
       +------------------+
 ```
