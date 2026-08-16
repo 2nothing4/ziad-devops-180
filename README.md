@@ -10,6 +10,8 @@ A production-style DevOps learning project focused on containerization, orchestr
 
 The goal of this repository is to document the practical implementation of a complete application platform using modern DevOps tooling and workflows.
 
+> **New here? Start with the [debugging incidents](docs/day29-loki-promtail-debug.md) — they show how this platform was built, broken, and fixed.**
+
 ---
 
 ## Architecture
@@ -34,7 +36,7 @@ The goal of this repository is to document the practical implementation of a com
               |
       +------------------+
       | Prometheus       |
-      |  Loki            |
+      | Loki             |
       | Grafana          |
       | Promtail         |
       | Alertmanager     |
@@ -108,11 +110,11 @@ Loki metrics | ✅ Live |
 
 ### Observability
 
-* Prometheus
-Loki
-* Grafana
-Promtail
-* Alertmanager
+- **Prometheus** — metrics collection
+- **Loki** — log aggregation
+- **Grafana** — dashboards and visualization
+- **Promtail** — log shipping
+- **Alertmanager** — alert routing and notifications
 
 ### Infrastructure as Code
 
@@ -234,26 +236,9 @@ Loki metrics
 | Helm | ✅ | - |
 | Terraform | ✅ | - |
 | CI/CD (GitHub Actions) | ✅ | - |
-| Monitoring (Prometheus
-Loki/Grafana
-Promtail) | ✅ | - |
+| Monitoring (Prometheus + Grafana + Loki + Promtail + Alertmanager) | ✅ | - |
 | Security Scanning (Trivy/Checkov) | ✅ | - |
 | **Cloud Deployment (Render)** | - | **✅** |
 | **Live URL for Portfolio** | - | **✅** |
 
 Repository continues to evolve as new capabilities are implemented and documented.
-
-
-## Helm Chart
-
-Deploy the entire stack with one command:
-
-```bash
-helm install ziad-devops ./helm/ziad-devops
-
-## Documentation
-- [Day 29: Loki + Promtail Troubleshooting](docs/day29-loki-promtail-debug.md)
-
-## Observability Stack (Added)
-- **Loki** — centralized log aggregation
-- **Promtail** — log shipper with Kubernetes service discovery
