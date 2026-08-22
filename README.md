@@ -242,3 +242,10 @@ Loki metrics
 | **Live URL for Portfolio** | - | **✅** |
 
 Repository continues to evolve as new capabilities are implemented and documented.
+
+## Testing
+
+- `pytest` suite with CI/CD integration via GitHub Actions
+- Tests cover `/health`, `/cache`, and `/metrics` endpoints
+- Database connections mocked for containerized test environments
+- See [commit history](https://github.com/2nothing4/ziad-devops-180/commits/main) for iterative debugging process
