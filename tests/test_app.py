@@ -1,13 +1,20 @@
 import pytest
-from app import app
+import sys
+import os
+import importlib.util
+
+# Load app from day9-flask/app.py (hyphen = invalid package name)
+spec = importlib.util.spec_from_file_location("app", os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "day9-flask", "app.py"))
+app_module = importlib.util.module_from_spec(spec)
+sys.modules["app"] = app_module
+spec.loader.exec_module(app_module)
+app = app_module.app
 
 @pytest.fixture
 def client():
     app.config['TESTING'] = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
     with app.test_client() as client:
-        with app.app_context():
-            yield client
+        yield client
 
 def test_health_endpoint(client):
     rv = client.get('/health')
