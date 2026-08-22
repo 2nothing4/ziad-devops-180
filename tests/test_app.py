@@ -1,10 +1,8 @@
-import pytest
 import sys
-import os
-import importlib.util
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
+from importlib.machinery import SourceFileLoader
 
-# Mock psycopg before importing app
+# Mock psycopg BEFORE loading the app
 mock_psycopg = MagicMock()
 mock_conn = MagicMock()
 mock_cursor = MagicMock()
@@ -13,12 +11,13 @@ mock_cursor.fetchall.return_value = []
 mock_cursor.fetchone.return_value = None
 mock_psycopg.connect.return_value = mock_conn
 
-with patch.dict('sys.modules', {'psycopg': mock_psycopg, 'psycopg2': mock_psycopg}):
-    spec = importlib.util.spec_from_file_location("app", os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "day9-flask", "app.py"))
-    app_module = importlib.util.module_from_spec(spec)
-    sys.modules["app"] = app_module
-    spec.loader.exec_module(app_module)
-    app = app_module.app
+sys.modules['psycopg'] = mock_psycopg
+sys.modules['psycopg2'] = mock_psycopg
+
+# Now load the app
+app = SourceFileLoader("app", "day9-flask/app.py").load_module().app
+
+import pytest
 
 @pytest.fixture
 def client():
