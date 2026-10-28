@@ -6,6 +6,7 @@ A production-style DevOps learning project focused on containerization, orchestr
 
 > **New here? Start with the [debugging incidents](docs/day29-loki-promtail-debug.md)** — they show how this platform was built, broken, and fixed.
 
+
 ## 📑 Table of Contents
 - [🚀 Live Deployment](#-live-deployment)
 - [🏗️ Architecture](#️-architecture)
@@ -13,6 +14,7 @@ A production-style DevOps learning project focused on containerization, orchestr
 - [✨ Key Features](#-key-features)
 - [🐛 Notable Debugging Examples](#-notable-debugging-examples)
 - [📊 Project Status](#-project-status)
+
 
 ## 🚀 Live Deployment
 
@@ -26,6 +28,7 @@ A production-style DevOps learning project focused on containerization, orchestr
 | `/logs` | Database query results | ✅ Live |
 | `/cache` | Redis cache test | ✅ Live |
 | `/metrics` | Prometheus metrics | ✅ Live |
+
 
 ## 🏗️ Architecture
 
@@ -76,6 +79,7 @@ A production-style DevOps learning project focused on containerization, orchestr
 └────────┘ └───────┘              └─────────┘ └─────────┘
 ```
 
+
 ## 🛠️ Tech Stack
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
@@ -87,6 +91,7 @@ A production-style DevOps learning project focused on containerization, orchestr
 ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
 ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=white)
 ![Grafana](https://img.shields.io/badge/grafana-%23F46800.svg?style=for-the-badge&logo=grafana&logoColor=white)
+
 
 ## ✨ Key Features
 
@@ -101,6 +106,7 @@ A production-style DevOps learning project focused on containerization, orchestr
 🔒 Security: Least-privilege RBAC, Network Policies, Kubernetes Secrets, and automated Trivy/Checkov scanning.
 
 🔄 CI/CD: Automated GitHub Actions workflows for Docker image validation, Helm linting, and manifest rendering.
+
 
 ## 🐛 Notable Debugging Examples
 
@@ -121,6 +127,7 @@ Root Cause: host.minikube.internal resolved to the wrong network interface.
 Resolution: Deployed the alert receiver as an in-cluster pod with a Kubernetes Service. Alertmanager now routes via cluster DNS.
 
 Lesson: In-cluster services should communicate via cluster DNS, not host networking.
+
 
 ## 📊 Project Status
 
