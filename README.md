@@ -14,8 +14,6 @@ A production-style DevOps learning project focused on containerization, orchestr
 - [🐛 Notable Debugging Examples](#-notable-debugging-examples)
 - [📊 Project Status](#-project-status)
 
----
-
 ## 🚀 Live Deployment
 
 **Flask API deployed on Render (cloud):** [https://ziad-flask-app.onrender.com](https://ziad-flask-app.onrender.com)
@@ -28,8 +26,6 @@ A production-style DevOps learning project focused on containerization, orchestr
 | `/logs` | Database query results | ✅ Live |
 | `/cache` | Redis cache test | ✅ Live |
 | `/metrics` | Prometheus metrics | ✅ Live |
-
----
 
 ## 🏗️ Architecture
 
@@ -141,7 +137,6 @@ Lesson: In-cluster services should communicate via cluster DNS, not host network
 
 🧪 Testing
 pytest suite with CI/CD integration via GitHub Actions.
-
 Tests cover /health, /cache, and /metrics endpoints.
 
 Database connections mocked for containerized test environments.
