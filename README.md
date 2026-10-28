@@ -1,20 +1,37 @@
-## Helm Chart
+# Ziad DevOps 180 🚀
 
-Deploy the entire stack with one command:
-
-```bash
-helm install ziad-devops ./helm/ziad-devops ![Deploy to Render](https://github.com/2nothing4/ziad-devops-180/actions/workflows/render-deploy.yml/badge.svg)
-# Ziad DevOps 180
+[![Deploy to Render](https://github.com/2nothing4/ziad-devops-180/actions/workflows/render-deploy.yml/badge.svg)](https://github.com/2nothing4/ziad-devops-180/actions/workflows/render-deploy.yml)
 
 A production-style DevOps learning project focused on containerization, orchestration, observability, security, CI/CD, and Infrastructure as Code.
 
-The goal of this repository is to document the practical implementation of a complete application platform using modern DevOps tooling and workflows.
+> **New here? Start with the [debugging incidents](docs/day29-loki-promtail-debug.md)** — they show how this platform was built, broken, and fixed.
 
-> **New here? Start with the [debugging incidents](docs/day29-loki-promtail-debug.md) — they show how this platform was built, broken, and fixed.**
+## 📑 Table of Contents
+- [🚀 Live Deployment](#-live-deployment)
+- [🏗️ Architecture](#️-architecture)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [✨ Key Features](#-key-features)
+- [🐛 Notable Debugging Examples](#-notable-debugging-examples)
+- [📊 Project Status](#-project-status)
 
 ---
 
-## Architecture
+## 🚀 Live Deployment
+
+**Flask API deployed on Render (cloud):** [https://ziad-flask-app.onrender.com](https://ziad-flask-app.onrender.com)
+*(Note: Hosted on Render free tier, may take ~50s to cold start).*
+
+| Endpoint | Description | Status |
+|----------|-------------|--------|
+| `/` | Service status | ✅ Live |
+| `/health` | PostgreSQL health check | ✅ Live |
+| `/logs` | Database query results | ✅ Live |
+| `/cache` | Redis cache test | ✅ Live |
+| `/metrics` | Prometheus metrics | ✅ Live |
+
+---
+
+## 🏗️ Architecture
 
 ```text
                     +-------------+
@@ -42,34 +59,7 @@ The goal of this repository is to document the practical implementation of a com
       | Alertmanager     |
       +------------------+
 ```
-
----
----
-
-## 🚀 Live Deployment
-
-**Flask API deployed on Render (cloud):** https://ziad-flask-app.onrender.com
-
-| Endpoint | Description | Status |
-|----------|-------------|--------|
-| `/` | Service status | ✅ Live |
-| `/health` | PostgreSQL health check | ✅ Live |
-| `/logs` | Database query results | ✅ Live |
-| `/cache` | Redis cache test | ✅ Live |
-| `/metrics` | Prometheus
-Loki metrics | ✅ Live |
-
-**Tech stack on Render:**
-- Flask + Gunicorn
-- PostgreSQL (managed)
-- Redis (managed)
-- Environment variables for configuration
-- Auto-deploy from GitHub
-
----
-
-## Local vs Cloud Architecture
-
+### Local vs Cloud Architecture
 ```text
    LOCAL (Minikube)                    CLOUD (Render)
    ┌─────────────┐                    ┌─────────────┐
@@ -89,163 +79,66 @@ Loki metrics | ✅ Live |
 │(local) │ │(local)│              │(managed)│ │(managed)│
 └────────┘ └───────┘              └─────────┘ └─────────┘
 ```
-## Technologies
+🛠️ Tech Stack
 
-### Containerization
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
+![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=for-the-badge&logo=terraform&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=white)
+![Grafana](https://img.shields.io/badge/grafana-%23F46800.svg?style=for-the-badge&logo=grafana&logoColor=white)
 
-* Docker
-* Docker Compose
+✨ Key Features
+☁️ Infrastructure as Code: Terraform modules for AWS production architecture planning.
 
-### Orchestration
+📦 Containerization: Docker & Docker Compose for local development.
 
-* Kubernetes (Minikube)
-* Helm
+☸️ Orchestration: Kubernetes (Minikube) with Helm for multi-pod deployments and persistent storage.
 
-### Application Stack
+📊 Observability: Full stack monitoring with Prometheus, Grafana, Loki, and Promtail. End-to-end tested Alertmanager webhooks.
 
-* Flask
-* PostgreSQL
-* Redis
-* Nginx
+🔒 Security: Least-privilege RBAC, Network Policies, Kubernetes Secrets, and automated Trivy/Checkov scanning.
 
-### Observability
+🔄 CI/CD: Automated GitHub Actions workflows for Docker image validation, Helm linting, and manifest rendering.
 
-- **Prometheus** — metrics collection
-- **Loki** — log aggregation
-- **Grafana** — dashboards and visualization
-- **Promtail** — log shipping
-- **Alertmanager** — alert routing and notifications
+🐛 Notable Debugging Examples
+1. 502 Bad Gateway Investigation
+Issue: Nginx returned HTTP 502 responses.
 
-### Infrastructure as Code
+Root Cause: Nginx configuration referenced a Kubernetes Service name that did not exist.
 
-* Terraform
+Resolution: Updated the upstream target to the correct Kubernetes Service and redeployed.
 
-### CI/CD
+Lesson: Kubernetes service discovery depends on exact DNS naming and service registration.
 
-* GitHub Actions
+2. Alertmanager Webhook Networking
+Issue: Alertmanager could not reach the webhook receiver running on the WSL2 host.
 
-### Security
+Root Cause: host.minikube.internal resolved to the wrong network interface.
 
-* Kubernetes Secrets
-* RBAC
-* Network Policies
+Resolution: Deployed the alert receiver as an in-cluster pod with a Kubernetes Service. Alertmanager now routes via cluster DNS.
 
----
+Lesson: In-cluster services should communicate via cluster DNS, not host networking.
 
-## Features
-
-### Application Platform
-
-* Flask API connected to PostgreSQL
-* Redis caching layer
-* Nginx reverse proxy
-* Multi-service architecture
-
-### Kubernetes
-
-* Multi-pod deployment
-* Service discovery
-* Load balancing
-* Persistent storage
-* Health checks
-* Resource management
-
-### Security
-
-* Secret-based credential management
-* Least-privilege RBAC configuration
-* Network segmentation using Kubernetes Network Policies
-* Trivy + Checkov security scanning
-
-### Observability
-
-* Prometheus
-Loki metrics collection
-* Grafana
-Promtail dashboards
-* Custom application metrics
-* Alertmanager alert rules
-* Alertmanager webhook alerts (end-to-end tested)
-* In-cluster alert receiver deployment
-
-### CI/CD
-
-* Automated GitHub Actions workflow
-* Docker image validation
-* Helm chart linting
-* Manifest rendering validation
-
-### Infrastructure as Code
-
-* Terraform modules
-* Reusable infrastructure definitions
-* AWS production architecture planning
-
----
-
-## Notable Debugging Example
-
-### 502 Bad Gateway Investigation
-
-Issue:
-
-* Nginx returned HTTP 502 responses.
-
-Root Cause:
-
-* Nginx configuration referenced a Kubernetes Service name that did not exist.
-
-Resolution:
-
-* Updated the upstream target to the correct Kubernetes Service.
-* Redeployed configuration using Kubernetes manifests.
-
-Lesson:
-
-* Kubernetes service discovery depends on exact DNS naming and service registration.
-
-### Alertmanager Webhook Networking
-
-**Issue:** Alertmanager could not reach the webhook receiver running on the WSL2 host.  
-**Root Cause:** `host.minikube.internal` resolved to the wrong network interface.  
-**Resolution:** Deployed the alert receiver as an in-cluster pod with a Kubernetes Service. Alertmanager now routes via cluster DNS.  
-**Lesson:** In-cluster services should communicate via cluster DNS, not host networking.
-
----
-
-## Production-Oriented Enhancements
-
-* Helm-based deployments
-* Persistent PostgreSQL storage
-* Resource requests and limits
-* Custom Prometheus
-Loki metrics
-* Alerting rules
-* Infrastructure modularization
-* Security hardening with RBAC and Network Policies
-
----
-
-## Current Status
+## 📊 Project Status
 
 | Area | Local | Cloud |
-|------|-------|-------|
-| Docker | ✅ | - |
-| Docker Compose | ✅ | - |
-| Kubernetes (Minikube) | ✅ | - |
-| Helm | ✅ | - |
-| Terraform | ✅ | - |
+|------|:-----:|:-----:|
+| Docker & Docker Compose | ✅ | - |
+| Kubernetes (Minikube) & Helm | ✅ | - |
+| Terraform (IaC) | ✅ | - |
 | CI/CD (GitHub Actions) | ✅ | - |
-| Monitoring (Prometheus + Grafana + Loki + Promtail + Alertmanager) | ✅ | - |
+| Monitoring Stack (Prometheus, Grafana, Loki, Alertmanager) | ✅ | - |
 | Security Scanning (Trivy/Checkov) | ✅ | - |
 | **Cloud Deployment (Render)** | - | **✅** |
 | **Live URL for Portfolio** | - | **✅** |
 
-Repository continues to evolve as new capabilities are implemented and documented.
+🧪 Testing
+pytest suite with CI/CD integration via GitHub Actions.
 
-## Testing
+Tests cover /health, /cache, and /metrics endpoints.
 
-- `pytest` suite with CI/CD integration via GitHub Actions
-- Tests cover `/health`, `/cache`, and `/metrics` endpoints
-- Database connections mocked for containerized test environments
-- See [commit history](https://github.com/2nothing4/ziad-devops-180/commits/main) for iterative debugging process
+Database connections mocked for containerized test environments.
