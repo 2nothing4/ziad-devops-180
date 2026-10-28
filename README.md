@@ -79,6 +79,7 @@ A production-style DevOps learning project focused on containerization, orchestr
 │(local) │ │(local)│              │(managed)│ │(managed)│
 └────────┘ └───────┘              └─────────┘ └─────────┘
 ```
+
 ## 🛠️ Tech Stack
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
@@ -91,7 +92,8 @@ A production-style DevOps learning project focused on containerization, orchestr
 ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=Prometheus&logoColor=white)
 ![Grafana](https://img.shields.io/badge/grafana-%23F46800.svg?style=for-the-badge&logo=grafana&logoColor=white)
 
-✨ Key Features
+## ✨ Key Features
+
 ☁️ Infrastructure as Code: Terraform modules for AWS production architecture planning.
 
 📦 Containerization: Docker & Docker Compose for local development.
@@ -104,7 +106,8 @@ A production-style DevOps learning project focused on containerization, orchestr
 
 🔄 CI/CD: Automated GitHub Actions workflows for Docker image validation, Helm linting, and manifest rendering.
 
-🐛 Notable Debugging Examples
+## 🐛 Notable Debugging Examples
+
 1. 502 Bad Gateway Investigation
 Issue: Nginx returned HTTP 502 responses.
 
