@@ -84,7 +84,8 @@ def health():
         conn.close()
         result = jsonify({'database': 'connected', 'status': 'healthy'})
     except Exception as e:
-        result = jsonify({'database': 'error', 'status': 'unhealthy', 'error': str(e)}), 500
+        print(f"Health check error: {e}") # Log for the server
+        result = jsonify({'database': 'error', 'status': 'unhealthy'}), 500
     REQUEST_LATENCY.observe(time.time() - start)
     return result
 
@@ -105,7 +106,8 @@ def logs():
             'time': str(row[2])
         } for row in rows])
     except Exception as e:
-        result = jsonify({'error': str(e)}), 500
+        print(f"Logs error: {e}") # Log for the server
+        result = jsonify({'error': 'Failed to retrieve logs'}), 500
     REQUEST_LATENCY.observe(time.time() - start)
     return result
 
@@ -123,7 +125,8 @@ def cache_test():
             'status': 'Redis caching works'
         })
     except Exception as e:
-        result = jsonify({'cache': 'error', 'error': str(e)}), 500
+        print(f"Cache error: {e}") # Log for the server
+        result = jsonify({'cache': 'error', 'status': 'Redis connection failed'}), 500
     REQUEST_LATENCY.observe(time.time() - start)
     return result
 
