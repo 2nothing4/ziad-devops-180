@@ -19,8 +19,7 @@ jobs:
       
     - name: Build Docker image
       run: |
-        cd day9-flask
-        docker build -t flask-app:latest .
+        docker build -f day9-flask/Dockerfile -t flask-app:latest .
         
     - name: Set up Helm
       uses: azure/setup-helm@v4
