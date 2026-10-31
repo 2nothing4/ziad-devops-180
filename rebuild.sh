@@ -10,7 +10,7 @@ echo "Waiting for cleanup..."
 sleep 5
 
 echo "Deploying with Helm..."
-helm install my-app ./ziad-devops-chart
+helm install my-app ./helm/ziad-devops
 
 echo "Waiting for pods..."
 sleep 15
