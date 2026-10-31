@@ -199,7 +199,7 @@ The repository currently contains separate workflows. Their scope should be desc
 
 | Workflow | What the checked-in workflow does | What it does **not** establish |
 |:--|:--|:--|
-| `pytest.yml` | Installs `day9-flask/requirements.txt`, installs pytest, and runs `pytest -v` on Python 3.12 | Does not provide end-to-end tests with real PostgreSQL and Redis services |
+| `pytest.yml` | Installs `requirements.txt`, installs pytest, and runs `pytest -v` on Python 3.12 | Does not provide end-to-end tests with real PostgreSQL and Redis services |
 | `docker-build.yml` | Builds the Flask Docker image; runs `helm lint` and `helm template` against `./ziad-devops` | Does not publish the image to a registry or prove that the Argo CD chart deploys successfully |
 | `render-deploy.yml` | Installs dependencies, imports the Flask app, then sends a POST request to the Render deploy hook on pushes to `main` | Does not verify the deployed service with post-deploy HTTP smoke tests |
 | `security.yml` | Runs Trivy filesystem scanning and Checkov scanning, then uploads SARIF reports | Checkov is configured with `soft_fail: true`; scanning is not currently a strict security release gate |
@@ -218,7 +218,7 @@ The `/cache` endpoint is **not** currently covered by an automated test; the tes
 From the repository root:
 
 ```bash
-python -m pip install -r day9-flask/requirements.txt
+python -m pip install -r requirements.txt
 python -m pip install pytest
 python -m pytest -v
 ```
@@ -310,7 +310,7 @@ The repository contains runnable application code, automated checks, local infra
 From the repository root:
 
 ```bash
-python -m pip install -r day9-flask/requirements.txt
+python -m pip install -r requirements.txt
 python -m pip install pytest
 python -m pytest -v
 ```
