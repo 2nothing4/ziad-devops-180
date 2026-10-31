@@ -2,3 +2,5 @@
 terraform.tfstate
 terraform.tfstate.backup
 *.tfplan
+__pycache__/
+*.pyc
