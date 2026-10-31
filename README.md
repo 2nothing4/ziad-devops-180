@@ -222,7 +222,7 @@ The repository uses separate GitHub Actions workflows for tests, container/Helm 
 
 ### Current pytest coverage
 
-The test suite contains **four tests** covering the `/health`, `/metrics`, and `/cache` endpoints:
+The test suite contains **five tests** covering the `/health`, `/metrics`, and `/cache` endpoints:
 
 - `test_health_endpoint` — checks that `/health` returns HTTP 200 with database dependencies mocked.
 - `test_metrics_endpoint` — checks that `/metrics` returns HTTP 200.

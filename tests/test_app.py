@@ -85,3 +85,31 @@ def test_cache_endpoint_redis_failure(client, monkeypatch):
 
 def test_import_does_not_init_db():
     assert app_module is not None
+
+def test_livez_endpoint(client):
+    response = client.get("/livez")
+    assert response.status_code == 200
+    assert response.get_json() == {"status": "alive"}
+
+def test_livez_with_db_failure(client, monkeypatch):
+    def mock_error():
+        raise Exception("Simulated DB failure")
+    monkeypatch.setattr(app_module, "get_db_connection", mock_error)
+    response = client.get("/livez")
+    # Liveness should STILL be 200 even if DB is dead
+    assert response.status_code == 200 
+
+def test_readyz_success(client):
+    # Uses the default mocked DB from the top of the file
+    response = client.get("/readyz")
+    assert response.status_code == 200
+    assert response.get_json() == {"status": "ready"}
+
+def test_readyz_failure(client, monkeypatch):
+    def mock_error():
+        raise Exception("Simulated DB failure")
+    monkeypatch.setattr(app_module, "get_db_connection", mock_error)
+    response = client.get("/readyz")
+    # Readiness should be 503 if DB is dead
+    assert response.status_code == 503
+    assert response.get_json() == {"status": "not_ready"}

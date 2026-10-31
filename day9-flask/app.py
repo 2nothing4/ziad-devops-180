@@ -55,8 +55,9 @@ def init_db():
         conn.commit()
         cur.close()
         conn.close()
-    except Exception as e:
-        print(f"Database init error: {e}")
+    except Exception:
+        print("Database initialization failed.")
+        raise
 
 # Initialize database on startup
 
@@ -87,6 +88,27 @@ def health():
         result = jsonify({'database': 'error', 'status': 'unhealthy'}), 500
     REQUEST_LATENCY.observe(time.time() - start)
     return result
+
+@app.route("/livez")
+def livez():
+    # Liveness: Is the Flask process alive? (No DB check)
+    return {"status": "alive"}, 200
+
+@app.route("/readyz")
+def readyz():
+    # Readiness: Can we serve traffic? (Requires DB)
+    try:
+        conn = get_db_connection()
+        try:
+            cur = conn.cursor()
+            cur.execute("SELECT 1")
+            cur.fetchone()
+            cur.close()
+        finally:
+            conn.close()
+        return {"status": "ready"}, 200
+    except Exception:
+        return {"status": "not_ready"}, 503
 
 @app.route('/logs')
 def logs():
@@ -136,3 +158,4 @@ def metrics():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+    @app.route('/health')
