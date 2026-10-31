@@ -28,7 +28,7 @@ jobs:
         version: 'latest'
         
     - name: Lint Helm chart
-      run: helm lint ./ziad-devops-chart
+      run: helm lint ./helm/ziad-devops
       
     - name: Template Helm chart
-      run: helm template my-app ./ziad-devops-chart
+      run: helm template my-app ./helm/ziad-devops
