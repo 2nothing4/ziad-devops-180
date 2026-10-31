@@ -59,7 +59,6 @@ def init_db():
         print(f"Database init error: {e}")
 
 # Initialize database on startup
-init_db()
 
 @app.route('/')
 def hello():

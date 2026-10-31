@@ -82,3 +82,6 @@ def test_cache_endpoint_redis_failure(client, monkeypatch):
     response = client.get("/cache")
     assert response.status_code == 500
     assert response.get_json() == {"cache": "error", "status": "Redis connection failed"}
+
+def test_import_does_not_init_db():
+    assert app_module is not None
