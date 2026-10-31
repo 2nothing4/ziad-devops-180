@@ -1,6 +1,7 @@
 import sys
 from unittest.mock import MagicMock
 from importlib.machinery import SourceFileLoader
+import pytest
 
 # Mock psycopg before importing app
 mock_psycopg = MagicMock()
@@ -22,10 +23,9 @@ mock_redis_client.set.return_value = True
 mock_redis.Redis.return_value = mock_redis_client
 sys.modules['redis'] = mock_redis
 
-# Now load the app
-app = SourceFileLoader("app", "day9-flask/app.py").load_module().app
-
-import pytest
+# Now load the app (Fixed the load_module typo here)
+app_module = SourceFileLoader("app", "day9-flask/app.py").load_module()
+app = app_module.app
 
 @pytest.fixture
 def client():
@@ -41,5 +41,43 @@ def test_metrics_endpoint(client):
     rv = client.get('/metrics')
     assert rv.status_code == 200
 
-# Note: /cache endpoint requires Redis connection — tested locally
-# CI environment runs without Redis service
+# --- NEW TESTS FOR DAY 38 ---
+
+def test_cache_endpoint_success(client, monkeypatch):
+    redis_client = MagicMock()
+    redis_client.get.return_value = "Day 24: Deployed on Render"
+    
+    monkeypatch.setattr(
+        app_module,
+        "get_redis_connection",
+        lambda: redis_client
+    )
+    
+    response = client.get("/cache")
+    assert response.status_code == 200
+    data = response.get_json()
+    
+    assert data == {
+        "cache": "connected",
+        "value": "Day 24: Deployed on Render",
+        "status": "Redis caching works"
+    }
+    
+    redis_client.set.assert_called_once_with(
+        "last_visit",
+        "Day 24: Deployed on Render"
+    )
+    redis_client.get.assert_called_once_with("last_visit")
+
+def test_cache_endpoint_redis_failure(client, monkeypatch):
+    def raise_redis_error():
+        raise ConnectionError("Simulated Redis outage")
+        
+    monkeypatch.setattr(
+        app_module,
+        "get_redis_connection",
+        raise_redis_error
+    )
+    
+    response = client.get("/cache")
+    assert response.status_code == 500
