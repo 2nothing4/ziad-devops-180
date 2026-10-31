@@ -55,7 +55,7 @@ The repository contains a local Kubernetes lab, a separately hosted Render deplo
 
 | Component / capability | Local lab · Minikube | Hosted service · Render | AWS environment |
 |:--|:--|:--|:--|
-| Flask API | Kubernetes Deployment; the `ziad-devops-chart` template specifies 3 replicas | Flask application served through Gunicorn | Not deployed |
+| Flask API | Kubernetes Deployment; the `ziad-devops` template specifies 3 replicas | Flask application served through Gunicorn | Not deployed |
 | Nginx | Reverse proxy in the local Kubernetes configuration | Render handles platform routing | An ALB/security-group design is present in Terraform; no live ALB deployment is demonstrated |
 | PostgreSQL | Local Kubernetes workload and persistent-volume configuration | External managed PostgreSQL configured through environment variables | RDS architecture is defined in Terraform; not deployed |
 | Redis | Local Kubernetes workload | External managed Redis configured through environment variables | ElastiCache architecture is defined in Terraform; not deployed |
@@ -118,7 +118,7 @@ flowchart TB
     PROMTAIL[Promtail] -. ships pod logs .-> LOKI[Loki]
 ```
 
-The three API replicas are specified in `ziad-devops-chart/templates/api.yaml`. Actual replica count depends on which chart is deployed and the cluster state.
+The three API replicas are specified in `ziad-devops/templates/api.yaml`. Actual replica count depends on which chart is deployed and the cluster state.
 
 ### 2. Hosted Render application
 
@@ -200,7 +200,7 @@ The repository currently contains separate workflows. Their scope should be desc
 | Workflow | What the checked-in workflow does | What it does **not** establish |
 |:--|:--|:--|
 | `pytest.yml` | Installs `day9-flask/requirements.txt`, installs pytest, and runs `pytest -v` on Python 3.12 | Does not provide end-to-end tests with real PostgreSQL and Redis services |
-| `docker-build.yml` | Builds the Flask Docker image; runs `helm lint` and `helm template` against `./ziad-devops-chart` | Does not publish the image to a registry or prove that the Argo CD chart deploys successfully |
+| `docker-build.yml` | Builds the Flask Docker image; runs `helm lint` and `helm template` against `./ziad-devops` | Does not publish the image to a registry or prove that the Argo CD chart deploys successfully |
 | `render-deploy.yml` | Installs dependencies, imports the Flask app, then sends a POST request to the Render deploy hook on pushes to `main` | Does not verify the deployed service with post-deploy HTTP smoke tests |
 | `security.yml` | Runs Trivy filesystem scanning and Checkov scanning, then uploads SARIF reports | Checkov is configured with `soft_fail: true`; scanning is not currently a strict security release gate |
 
@@ -233,15 +233,15 @@ docker build -t flask-app:latest ./day9-flask
 
 ### Validate the chart used by the Docker/Helm workflow
 
-The checked-in `docker-build.yml` workflow runs these commands against `ziad-devops-chart`:
+The checked-in `docker-build.yml` workflow runs these commands against `ziad-devops`:
 
 ```bash
-helm lint ./ziad-devops-chart
-helm template my-app ./ziad-devops-chart
+helm lint ./ziad-devops
+helm template my-app ./ziad-devops
 ```
 
 > [!IMPORTANT]
-> **There are currently two Helm chart directories.** The Argo CD Application manifest at `argocd/application.yaml` points to `helm/ziad-devops`, while the Docker/Helm CI workflow validates `ziad-devops-chart`. These are different chart directories. The CI checks therefore do not validate the chart path currently referenced by Argo CD. Consolidate the charts or explicitly document and test their separate purposes before treating the deployment workflow as reproducible.
+> **There are currently two Helm chart directories.** The Argo CD Application manifest at `argocd/application.yaml` points to `helm/ziad-devops`, while the Docker/Helm CI workflow validates `ziad-devops`. These are different chart directories. The CI checks therefore do not validate the chart path currently referenced by Argo CD. Consolidate the charts or explicitly document and test their separate purposes before treating the deployment workflow as reproducible.
 
 ---
 
@@ -260,7 +260,7 @@ Chart path:     helm/ziad-devops
 Namespace:      default
 ```
 
-The separate `ziad-devops-chart/` directory is the chart currently linted and rendered by `docker-build.yml`.
+The separate `ziad-devops/` directory is the chart currently linted and rendered by `docker-build.yml`.
 
 Before documenting a one-command deployment, align these pieces:
 
@@ -324,8 +324,8 @@ docker build -t flask-app:latest ./day9-flask
 ### Lint and render the chart currently checked by CI
 
 ```bash
-helm lint ./ziad-devops-chart
-helm template my-app ./ziad-devops-chart
+helm lint ./ziad-devops
+helm template my-app ./ziad-devops
 ```
 
 The Argo CD Application points to a different chart directory (`helm/ziad-devops`). Do not treat the commands above as validation of the Argo CD chart until the two chart paths are reconciled.
