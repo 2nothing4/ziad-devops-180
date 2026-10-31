@@ -9,3 +9,18 @@
 - **Objective:** Write actual tests for the `/cache` endpoint to verify Redis success and failure paths.
 - **Changes:** Updating `tests/test_app.py` with mock Redis connections.
 - **Validation:** `pytest` suite passes locally and in CI.
+
+## Day 39 — Application Hardening
+- **Objective:** Prevent API information leakage.
+- **Changes:** Replaced raw Python exception strings (`str(e)`) with generic JSON error messages for `/health`, `/logs`, and `/cache`. Added server-side logging.
+- **Validation:** Pytest suite updated; 4 tests passed. CI green.
+
+## Day 40 — Cloud Sandboxing & CI/CD
+- **Objective:** Fix Render deployment failures caused by path restructuring.
+- **Changes:** Updated Docker build context to repository root. Created nested `day9-flask/requirements.txt` (`-r ../requirements.txt`) to resolve Render's root directory sandbox. Fixed curl redirect in GitHub Actions.
+- **Validation:** All 4 GitHub Action workflows green (Pytest, Security, CI/CD, Deploy).
+
+## Day 41 — Application Lifecycle
+- **Objective:** Remove import-time database initialization.
+- **Changes:** Removed top-level `init_db()` from `app.py`. Created `manage_db.py` for explicit initialization. Replaced silent exception handling with bare `raise` to ensure non-zero exit status on failure. Added test for import side-effects.
+- **Validation:** 5 tests passed. CI green.
