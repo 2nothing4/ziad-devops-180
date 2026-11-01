@@ -12,11 +12,28 @@ spec:
       labels:
         app: api
     spec:
+      # 1. POD-LEVEL SECURITY CONTEXT
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        runAsGroup: 10001
+        seccompProfile:
+          type: RuntimeDefault
+      
       serviceAccountName: api-sa
+      
       containers:
         - name: api
-          image: flask-day22b
+          image: flask-day44
           imagePullPolicy: Never
+          
+          # 2. CONTAINER-LEVEL SECURITY CONTEXT
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+          
           ports:
             - name: http
               containerPort: 5000

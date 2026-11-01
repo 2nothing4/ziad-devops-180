@@ -24,3 +24,8 @@
 - **Objective:** Remove import-time database initialization.
 - **Changes:** Removed top-level `init_db()` from `app.py`. Created `manage_db.py` for explicit initialization. Replaced silent exception handling with bare `raise` to ensure non-zero exit status on failure. Added test for import side-effects.
 - **Validation:** 5 tests passed. CI green.
+
+## Day 44 — Kubernetes Security Contexts
+- **Objective:** Harden the API container by enforcing least privilege.
+- **Changes:** Created a non-root `appuser` (UID 10001) in the Dockerfile. Added Pod and Container `securityContext` to the Helm chart (`runAsNonRoot`, `allowPrivilegeEscalation: false`, dropped `ALL` capabilities).
+- **Validation:** `kubectl exec deploy/api -- id` confirms the app runs as `uid=10001(appuser)`. Probes remain healthy.
