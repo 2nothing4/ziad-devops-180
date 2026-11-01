@@ -25,7 +25,24 @@
 - **Changes:** Removed top-level `init_db()` from `app.py`. Created `manage_db.py` for explicit initialization. Replaced silent exception handling with bare `raise` to ensure non-zero exit status on failure. Added test for import side-effects.
 - **Validation:** 5 tests passed. CI green.
 
-## Day 44 — Kubernetes Security Contexts
-- **Objective:** Harden the API container by enforcing least privilege.
-- **Changes:** Created a non-root `appuser` (UID 10001) in the Dockerfile. Added Pod and Container `securityContext` to the Helm chart (`runAsNonRoot`, `allowPrivilegeEscalation: false`, dropped `ALL` capabilities).
-- **Validation:** `kubectl exec deploy/api -- id` confirms the app runs as `uid=10001(appuser)`. Probes remain healthy.
+## Day 44 — Kubernetes Container Security Contexts
+
+- **Objective:** Harden the Flask API container by enforcing least privilege.
+- **Changes:**
+  - Created dedicated `appuser` and `appgroup` identities (UID/GID 10001).
+  - Configured Dockerfile `USER` instruction.
+  - Enabled Kubernetes `runAsNonRoot`.
+  - Set explicit `runAsUser` and `runAsGroup`.
+  - Disabled privilege escalation.
+  - Dropped all Linux capabilities.
+  - Applied `RuntimeDefault` seccomp profile.
+- **Validation:**
+  - Verified runtime identity using `kubectl exec ... id`.
+  - Confirmed UID 10001 and GID 10001.
+  - Verified the updated ReplicaSet replaced the previous pods.
+  - Confirmed application health probes remained healthy.
+
+## Day 45 — Read-Only Root Filesystem
+- **Objective:** Harden the container filesystem to prevent runtime tampering.
+- **Changes:** Enabled `readOnlyRootFilesystem: true` in the API container. Added `emptyDir` volumes for `/tmp` and `/app/__pycache__` to allow Python temporary writes.
+- **Validation:** `touch /app/hacked.txt` fails with "Read-only file system". Probes remain healthy. 0 restarts on new pods.

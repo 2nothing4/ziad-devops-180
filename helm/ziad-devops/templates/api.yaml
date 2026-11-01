@@ -26,14 +26,17 @@ spec:
         - name: api
           image: flask-day44
           imagePullPolicy: Never
-          
-          # 2. CONTAINER-LEVEL SECURITY CONTEXT
+          volumeMounts:
+            - name: tmp-dir
+              mountPath: /tmp
+            - name: pycache-dir
+              mountPath: /app/__pycache__
           securityContext:
             allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
-          
           ports:
             - name: http
               containerPort: 5000
@@ -67,3 +70,10 @@ spec:
               port: http
             initialDelaySeconds: 5
             periodSeconds: 5
+      
+      # THIS IS THE CRITICAL FIX: 'volumes' must be aligned with 'containers'
+      volumes:
+        - name: tmp-dir
+          emptyDir: {}
+        - name: pycache-dir
+          emptyDir: {}
