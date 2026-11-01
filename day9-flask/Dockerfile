@@ -17,4 +17,8 @@ USER 10001:10001
 
 EXPOSE 5000
 
+# Prevent Python from writing .pyc files to the filesystem
+ENV PYTHONDONTWRITEBYTECODE=1
+
+EXPOSE 5000
 CMD ["python", "app.py"]

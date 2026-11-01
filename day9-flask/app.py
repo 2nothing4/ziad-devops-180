@@ -22,7 +22,7 @@ def get_db_connection():
             host=os.environ.get('DB_HOST', 'localhost'),
             dbname='devops',
             user='ziad',
-            password=os.environ.get('DB_PASSWORD', 'secret123')
+            password=os.environ['DB_PASSWORD']
         )
 
 def get_redis_connection():
