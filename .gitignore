@@ -4,3 +4,7 @@ terraform.tfstate.backup
 *.tfplan
 __pycache__/
 *.pyc
+.terraform/
+*.tfstate
+*.tfstate.backup
+plan.txt

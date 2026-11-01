@@ -29,8 +29,6 @@ spec:
           volumeMounts:
             - name: tmp-dir
               mountPath: /tmp
-            - name: pycache-dir
-              mountPath: /app/__pycache__
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -71,9 +69,6 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 5
       
-      # THIS IS THE CRITICAL FIX: 'volumes' must be aligned with 'containers'
       volumes:
         - name: tmp-dir
-          emptyDir: {}
-        - name: pycache-dir
           emptyDir: {}
