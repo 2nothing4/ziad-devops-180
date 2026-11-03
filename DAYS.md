@@ -106,3 +106,13 @@
 - **Expected:** Clean repository without bulky binaries or sensitive plan files.
 - **Observed:** `.terraform/` and `plan.txt` were tracked but have now been untracked via `git rm --cached`.
 - **Status:** PASS (Remediated during audit)
+
+## Day 48 — Secrets Remediation
+- **Objective:** Remove hardcoded database credentials from application and deployment configuration.
+- **Changes:** Removed fallback password from `app.py`. Moved password to a Kubernetes Secret. Updated workloads to consume the secret.
+- **Validation:** API successfully connected to PostgreSQL. Verified no plaintext credentials remained in tracked files.
+
+## Day 49 — RBAC & Service Account Hardening
+- **Objective:** Reduce unnecessary Kubernetes API access for the application.
+- **Changes:** Disabled `automountServiceAccountToken` in the Deployment. Deleted unnecessary `api-role` and `api-binding` from the Helm chart and cluster.
+- **Validation:** Verified the token is no longer mounted in the API pod. Verified the ServiceAccount can no longer list pods (`kubectl auth can-i` returns `no`).
