@@ -3,6 +3,9 @@ from unittest.mock import MagicMock
 from importlib.machinery import SourceFileLoader
 import pytest
 
+import os
+os.environ['DB_PASSWORD'] = 'mock-password-for-testing'
+
 # Mock psycopg before importing app
 mock_psycopg = MagicMock()
 mock_conn = MagicMock()
