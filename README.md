@@ -410,7 +410,7 @@ Review the AWS design and credentials carefully. Do not run `terraform apply` ag
 - Kubernetes work is based on a local Minikube environment, not a managed production cluster.
 - The Render application is a separate hosted deployment, not a Kubernetes deployment.
 - AWS infrastructure is defined as Terraform planning/design work and has not been deployed.
-- The current pytest suite contains four endpoint tests using mocked dependencies where applicable; it is not an end-to-end integration suite.
+- The current pytest suite contains nine endpoint tests using mocked dependencies where applicable; it is not an end-to-end integration suite.
 - The CI workflows validate the canonical Helm chart path, but a successful lint/template run does not prove an actual Argo CD sync or healthy cluster deployment.
 - The Docker workflow builds an image, but end-to-end image publishing and consumption by the Kubernetes deployment still need explicit verification.
 - The Render workflow triggers deployment but does not currently prove post-deployment application health through an HTTP smoke test.

@@ -196,3 +196,13 @@
   - Confirmed `automountServiceAccountToken` was set to `false` in the API workload configuration.
   - Ran `kubectl auth can-i list pods` for the API ServiceAccount identity; the result was `no`.
 - **Outcome:** The unnecessary Pod-list permission and automatic service-account token mounting were removed for the API workload. The troubleshooting also exposed why RBAC changes must be made in Helm's declared source of truth, not only by deleting resources directly from the cluster.
+
+## Day 50 — NetworkPolicy Egress Hardening
+- **Objective:** Restrict unauthorized outbound traffic while explicitly allowing required application communication and DNS resolution.
+- **Changes:** Created `net-test` namespace. Applied `default-deny-all` for ingress and egress. Applied `allow-dns` policy targeting `kube-system` to allow UDP/TCP port 53.
+- **Validation:** Proved DNS failed without the rule (timeout), and succeeded with the rule. Documented in `docs/ci-cd/network-tests.md`.
+
+## Day 51 — Automated Regression Testing
+- **Objective:** Turn manual connectivity checks into a repeatable regression script.
+- **Changes:** Created `test-network.sh` in the root. Created documentation in `docs/ci-cd/network-tests.md`.
+- **Validation:** Script runs 4 checks: DNS resolve, API to DB (positive control), Test Pod to DB (negative control), and handles error codes. 
