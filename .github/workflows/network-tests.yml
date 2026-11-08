@@ -1,0 +1,48 @@
+name: Network Policy Regression Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  network-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Create k8s Kind Cluster
+      uses: helm/kind-action@v1.10.0
+      with:
+        cluster_name: net-test-cluster
+        config: |
+          kind: Cluster
+          apiVersion: kind.x-k8s.io/v1alpha4
+          networking:
+            disableDefaultCNI: true # Disable Kindnet
+            podSubnet: 192.168.0.0/16
+
+    - name: Install Calico CNI
+      run: |
+        kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.28.0/manifests/calico.yaml
+        kubectl wait --for=condition=Ready nodes --all --timeout=120s
+        kubectl wait --for=condition=Ready pods --all -n kube-system --timeout=120s
+
+    - name: Setup Kubectl and Deploy App
+      run: |
+        # Apply your namespace and policies
+        kubectl create namespace net-test
+        kubectl apply -f deny-all.yaml -n net-test || true
+        kubectl apply -f allow-dns.yaml -n net-test || true
+        
+        # Launch test pod
+        kubectl run test-pod -n net-test --image=busybox --restart=Never -- sleep 3600
+        kubectl wait --for=condition=Ready pod/test-pod -n net-test --timeout=60s
+
+    - name: Run Network Regression Script
+      run: |
+        # Note: Since we are in CI, we adapt the script to use the Kind cluster
+        bash test-network.sh
