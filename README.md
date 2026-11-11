@@ -329,7 +329,6 @@ The repository contains security-related configurations, but they should be inte
 - **API error handling:** Replaced raw exception details in client-facing JSON responses for `/health`, `/logs`, and `/cache` with generic error messages. Exception details are written to server-side process output for troubleshooting; this is basic output logging, not yet a structured logging system.
 - **Failure-path testing:** Added a mocked Redis failure test to verify that the `/cache` endpoint returns a controlled error response when the dependency fails.
 - **Security scanning:** Integrated Trivy and Checkov security scanning into CI (currently configured as advisory).
-```[cite: 1]
 - **Kubernetes credentials:** Kubernetes Secret manifests are used for application configuration in the local lab.
 - **Access control:** RBAC and NetworkPolicies are configured for the local Minikube environment.
 - **TLS configuration:** cert-manager issuer and certificate manifests use a self-signed certificate configuration.
@@ -342,7 +341,6 @@ The repository contains security-related configurations, but they should be inte
 - **Security workflow enforcement:** Checkov was configured with `soft_fail: true` in the reviewed workflow, and the Trivy/Checkov actions used floating `@master` references. Review the current workflow, pin third-party actions to reviewed versions/SHAs, and define deliberate failure thresholds.
 - **Container hardening:** Verify non-root execution, filesystem permissions and image/dependency hygiene before claiming hardened production containers.
 - **Observability:** Configured Prometheus/Grafana for metrics and Loki/Promtail for centralized logging.
-```[cite: 1]
 - **Recovery:** Add documented backup/restore exercises and prove that a restore succeeds.
 - **Post-deployment verification:** Add a separate post-deploy smoke test or health-check step; a successful Render deploy-hook request alone is not sufficient evidence of application health.
 
