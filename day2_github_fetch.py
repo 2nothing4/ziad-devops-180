@@ -2,7 +2,7 @@ import requests
 import json
 
 # Your GitHub repo
-url = "https://api.github.com/repos/2nothing4/ziad-devops-180"
+url = "https://api.github.com/repos/ziadchabane/ziad-devops-180"
 
 # Fetch the data
 response = requests.get(url)

@@ -206,3 +206,9 @@
 - **Objective:** Turn manual connectivity checks into a repeatable regression script.
 - **Changes:** Created `test-network.sh` in the root. Created documentation in `docs/ci-cd/network-tests.md`.
 - **Validation:** Script runs 4 checks: DNS resolve, API to DB (positive control), Test Pod to DB (negative control), and handles error codes. 
+
+## Day 52 — Automated CI for Network Policies
+- **Objective:** Integrate network regression tests into the CI pipeline.
+- **Changes:** Created `.github/workflows/network-tests.yml`. Configured a Kind cluster with Calico CNI to test the `deny-all` and `allow-dns` policies on every push.
+- **Validation:** Local tests passed. GitHub Actions pipeline triggered.
+- **Outcome:** Network security is now validated automatically before merging.

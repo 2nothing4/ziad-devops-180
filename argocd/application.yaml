@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: 'https://github.com/2nothing4/ziad-devops-180'
+    repoURL: 'https://github.com/ziadchabane/ziad-devops-180'
     targetRevision: HEAD
     path: helm/ziad-devops
     helm:

@@ -1,10 +1,29 @@
+# Terraform working directory
 .terraform/
-terraform.tfstate
-terraform.tfstate.backup
-*.tfplan
-__pycache__/
-*.pyc
-.terraform/
+
+# Terraform state
 *.tfstate
-*.tfstate.backup
-plan.txt
+*.tfstate.*
+
+# Terraform plans
+*.tfplan
+*.tfplan.*
+
+# Variable files may contain secrets
+*.tfvars
+*.tfvars.json
+!terraform.tfvars.example
+
+# Crash logs
+crash.log
+crash.*.log
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# IDE and operating system files
+.idea/
+.DS_Store
+Thumbs.db

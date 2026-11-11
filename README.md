@@ -7,7 +7,7 @@
 A hands-on DevOps engineering project exploring the workflow around a Flask service: containers, Kubernetes, Helm, CI/CD, infrastructure as code, observability, and security tooling.
 
 <p>
-  <a href="https://github.com/2nothing4/ziad-devops-180/actions/workflows/render-deploy.yml"><img src="https://github.com/2nothing4/ziad-devops-180/actions/workflows/render-deploy.yml/badge.svg" alt="Render deployment workflow" /></a>
+  <a href="https://github.com/ziadchabane/ziad-devops-180/actions/workflows/render-deploy.yml"><img src="https://github.com/ziadchabane/ziad-devops-180/actions/workflows/render-deploy.yml/badge.svg" alt="Render deployment workflow" /></a>
   <img src="https://img.shields.io/badge/Application-Flask-000000?logo=flask&logoColor=white" alt="Flask" />
   <img src="https://img.shields.io/badge/Containers-Docker-2496ED?logo=docker&logoColor=white" alt="Docker" />
   <img src="https://img.shields.io/badge/Kubernetes-Local%20Minikube-326CE5?logo=kubernetes&logoColor=white" alt="Kubernetes Minikube" />
@@ -16,7 +16,7 @@ A hands-on DevOps engineering project exploring the workflow around a Flask serv
   <img src="https://img.shields.io/badge/Status-Active%20development-orange" alt="Active development" />
 </p>
 
-**An independent DevOps learning and engineering project by [Ziad](https://github.com/2nothing4).**
+**An independent DevOps learning and engineering project by [Ziad](https://github.com/ziadchabane).**
 
 </div>
 
@@ -31,7 +31,7 @@ The repository contains a local Kubernetes lab, a separately hosted Render deplo
 > [!IMPORTANT]
 > **Environment boundaries matter.** The Kubernetes environment is a local Minikube lab. The public web application is hosted separately on Render. The AWS Terraform configuration is infrastructure design and validation work; this repository does **not** demonstrate a deployed AWS production environment. These are separate environments, not one end-to-end production platform.
 
-**Start with:** [Incident reports](docs/incidents/) · [Loki / Promtail troubleshooting](docs/day29-loki-promtail-debug.md) · [GitHub repository](https://github.com/2nothing4/ziad-devops-180)
+**Start with:** [Incident reports](docs/incidents/) · [Loki / Promtail troubleshooting](docs/day29-loki-promtail-debug.md) · [GitHub repository](https://github.com/ziadchabane/ziad-devops-180)
 
 ## 📑 Contents
 
@@ -281,7 +281,7 @@ The repository contains Kubernetes manifests and Helm templates for the API, Ngi
 The canonical Argo CD Application and CI chart path is:
 
 ```text
-Repository:      https://github.com/2nothing4/ziad-devops-180
+Repository:      https://github.com/ziadchabane/ziad-devops-180
 Target revision: HEAD
 Chart path:      helm/ziad-devops
 Namespace:       default
@@ -437,9 +437,9 @@ Review the AWS design and credentials carefully. Do not run `terraform apply` ag
 
 <div align="center">
 
-### Built through hands-on practice by [Ziad](https://github.com/2nothing4)
+### Built through hands-on practice by [Ziad](https://github.com/ziadchabane)
 
-[Repository](https://github.com/2nothing4/ziad-devops-180) · [GitHub profile](https://github.com/2nothing4) · [Incident reports](docs/incidents/)
+[Repository](https://github.com/ziadchabane/ziad-devops-180) · [GitHub profile](https://github.com/ziadchabane) · [Incident reports](docs/incidents/)
 
 *Learn by building. Improve by debugging. Prove it with evidence.*
 
