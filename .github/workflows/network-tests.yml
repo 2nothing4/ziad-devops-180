@@ -31,6 +31,11 @@ jobs:
           kubectl wait --for=condition=Ready pod/test-pod -n net-test --timeout=60s
           echo "Testing DNS..."
           kubectl exec -n net-test test-pod -- nslookup google.com
+      
+      - name: Deploy API Deployment
+        run: |
+          kubectl create deployment api --image=busybox -- sleep 3600
+          kubectl rollout status deployment/api --timeout=60s
 
       - name: Deploy PostgreSQL Service
         run: |
