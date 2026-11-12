@@ -36,3 +36,8 @@ jobs:
           kubectl wait --for=condition=Ready pod/test-pod -n net-test --timeout=60s
           echo "Testing DNS..."
           kubectl exec -n net-test test-pod -- nslookup google.com
+
+      - name: Run Network Policy Test Script
+        run: |
+          chmod +x test-network.sh
+          ./test-network.sh
