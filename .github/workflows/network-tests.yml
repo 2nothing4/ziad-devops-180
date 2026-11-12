@@ -32,6 +32,12 @@ jobs:
           echo "Testing DNS..."
           kubectl exec -n net-test test-pod -- nslookup google.com
 
+      - name: Deploy PostgreSQL Service
+        run: |
+          kubectl run postgresql --image=postgres:15-alpine -n net-test --env="POSTGRES_PASSWORD=test" --labels="app=postgres"
+          kubectl expose pod postgresql --name=postgres-service --port=5432 -n net-test
+          kubectl wait --for=condition=Ready pod/postgresql -n net-test --timeout=60s
+
       - name: Run Network Policy Test Script
         run: |
           chmod +x test-network.sh
